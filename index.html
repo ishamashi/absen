@@ -9,97 +9,111 @@
         <meta name="viewport" content="initial-scale=1">
         <meta name="viewport" content="width=device-width">
     </head>
-    <body onload="muatDataSiswa();">
+    <body onload="muatDaftarData();">
         
         <div class="col-md-8 col-md-offset-2" ng-controller="listContactCtrl">
+
+<!-- HEADER -->
+
             <div class="page-header">
                 <h4>
-                    Data Siswa
+                    Absensi Harian
                 </h4>
                 <ul class="nav nav-pills">
-                  <li><a id="nav-list-siswa-icho" class="btn btn-primary btn-sm" href="javascript:void(0);" onclick="gantiMenu('list-siswa-icho');">Data Siswa</a></li>
-                  <li><a id="nav-tambah-siswa-icho" class="btn btn-info btn-sm" href="javascript:void(0);" onclick="gantiMenu('tambah-siswa-icho');">Tambah Data</a></li>
+                  <li><a id="nav-list-data" class="btn btn-primary btn-sm" href="javascript:void(0);" onclick="gantiMenu('list-data');">Daftar Data</a></li>
+                  <li><a id="nav-tambah-data" class="btn btn-info btn-sm" href="javascript:void(0);" onclick="gantiMenu('tambah-data');">Absen</a></li>
+                  <li><a id="nav-siswa" class="btn btn-success btn-sm" href="javascript:void(0);" onclick="gantiMenu('siswa');">Data Siswa</a></li>
+                  <li><a id="nav-data" class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="gantiMenu('data');">Tambah Siswa</a></li>
                 </ul>
 
             </div>
-            <div id="tambah-siswa-icho" class="well" style="display:none;">
+
+<!-- ABSENSI -->
+
+            <div id="tambah-data" class="well" style="display:none;">
                 <form id="form-data">
-                    <div id="name-icho" class="form-icho">
-                        <label>Nis :</label> 
-                        <input type="number" class="form-control" id="nis" name="nis" placeholder="Masukan Nis Anda" /><br/>
+                    <div id="name-group" class="form-group">
+                        <label>Nama :</label> 
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Siswa" /><br/>
                     </div>
-                    <!-- <div id="kelas-icho" class="form-icho">
-                        <label>Nama :</label> 
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Anda" /><br/>
-                    </div> -->
-                    <div id="kelas-icho" class="form-icho">
-                        <label>Nama :</label> 
-                        <!-- <select class="form-control" name="ket" id="ket">
+                    <div id="kelas-group" class="form-group">
+                        <label>Kelas :</label> 
+                        <input type="text" class="form-control" id="kelas" name="kelas" placeholder="Masukan Kelas Siswa" /><br/>
+                    </div>
+                    <div id="ket-group" class="form-group">
+                        <label>Keterangan :</label> 
+                        <select class="form-control" name="ket" id="ket">
                             <option value="Hadir">Hadir</option>
-                        </select> -->
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Anda" /><br/>
+                            <option value="Sakit">Sakit</option>
+                            <option value="Izin">Izin</option>
+                            <option value="Alfa">Alfa</option>
+                        </select>
+                        <!-- <textarea class="form-control" id="ket" name="ket" placeholder="Keterangan 'Sakit', 'Alfa', 'Izin'"></textarea> --><br/>
                     </div>
-                    <input type="button" value="Simpan" onclick="tambahSiswa();" class="btn btn-success btn-sm"/>
+                    <input type="button" value="Simpan" onclick="simpanData();" class="btn btn-success btn-sm"/>
                     <input type="reset" value="Reset" onclick="" class="btn btn-danger btn-sm"/>
                 </form>
             </div>
+
+<!-- TAMBAH SISWA -->
+
+            <div id="data" class="well" style="display:none;">
+                <form id="form-data">
+                    <div id="name-group" class="form-group">
+                        <label>NIS :</label> 
+                        <input type="text" class="form-control" id="nis" name="nis" placeholder="Masukan Nis Siswa" /><br/>
+                    </div>
+                    <div id="kelas-group" class="form-group">
+                        <label>Nama :</label> 
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Siswa" /><br/>
+                    </div>
+                    <input type="button" value="Simpan" onclick="dataSiswa();" class="btn btn-success btn-sm"/>
+                    <input type="reset" value="Reset" onclick="" class="btn btn-danger btn-sm"/>
+                </form>
+            </div>
+
+<!-- EDIT ABSEN -->
+
             <div id="edit-data" class="well" style="display:none;">
                 <form id="eform-data">
 				
-                    <div id="name-icho" class="form-icho" style="display:none;">
-                        <label>No:</label> 
+                    <div id="name-group" class="form-group" style="display:none;">
+                        <label>Id Data:</label> 
                         <input type="text" class="form-control" id="eid_data" name="nama" placeholder="" /><br/>
                     </div>
 				
-                    <div id="name-icho" class="form-icho">
-                        <label>Nis :</label> 
-                        <input type="text" class="form-control" id="enis" name="nis" placeholder="Nis" /><br/>
-                    </div>
-                    <div id="kelas-icho" class="form-icho">
+                    <div id="name-group" class="form-group">
                         <label>Nama :</label> 
-                        <input type="text" class="form-control" id="enama" name="nama" placeholder="Nama" /><br/>
+                        <input type="text" class="form-control" id="enama" name="nama" placeholder="contoh: Nyekrip Web" /><br/>
                     </div>
-                    <input type="button" value="Simpan" onclick="simpaneditSiswa();" class="btn btn-success btn-sm"/>
+                    <div id="kelas-group" class="form-group">
+                        <label>Kelas :</label> 
+                        <input type="text" class="form-control" id="ekelas" name="kelas" placeholder="contoh: Indonesia" /><br/>
+                    </div>
+                    <div id="ket-group" class="form-group">
+                        <label>Keterangan :</label> 
+                        <textarea class="form-control" id="eket" name="ket" placeholder="contoh: Web Tutorial Indonesia"></textarea><br/>
+                    </div>
+                    <input type="button" value="Simpan" onclick="simpanEditData();" class="btn btn-success btn-sm"/>
                     <input type="reset" value="Reset" onclick="" class="btn btn-warning btn-sm"/>
-                    <input type="button" value="Cancel" onclick="gantiMenu('list-siswa-icho');" class="btn btn-warning btn-sm"/>
+                    <input type="button" value="Cancel" onclick="gantiMenu('list-data');" class="btn btn-warning btn-sm"/>
                 </form>
             </div>
-            <div id="list-siswa-icho" class="well">
-                Belum Di Absen...
+
+<!-- LIST ABSEN -->
+
+            <div id="list-data" class="well">
+                Belum Di Abseasdasdn...
+            </div>
+
+            <div id="siswa" class="well">
+                Belum Ada Siswa...
             </div>
         </div>
         
     </body>
     <script type="text/javascript">
-
-        // function muatDataSiswa(){
-        //     if (localStorage.daftar_data && localStorage.id_data){
-            
-        //         daftar_data = JSON.parse(localStorage.getItem('daftar_data'));
-               
-        //         var data_app = "";
-                
-        //         if (daftar_data.length > 0){
-        //             data_app = '<select class="form-control" name="nama">';
-                                      
-        //             for (i in daftar_data){
-        //                 data_app += '<option value="'+ daftar_data[i].nama +'">'+ daftar_data[i].nama +'</option>';
-                        
-        //             }
-               
-        //         }
-        //         else {
-        //             data_app = "Belum Di Absen...";
-        //         }
-               
-                
-        //        $('#list-siswa-icho').html(data_app);
-        //        $('#list-siswa-icho').hide();
-        //        $('#list-siswa-icho').fadeIn(100);
-        //     }
-        // }
-
-        function muatDataSiswa(){
+        function muatDaftarData(){
             if (localStorage.daftar_data && localStorage.id_data){
             
                 daftar_data = JSON.parse(localStorage.getItem('daftar_data'));
@@ -109,17 +123,21 @@
                 if (daftar_data.length > 0){
                     data_app = '<table class="table">';
                     data_app += '<thead class="thead-dark">'+
-                                        '<th>Nis</th>'+
+                                        '<th>ID</th>'+
                                         '<th>Nama</th>'+
+                                        '<th>Kelas</th>'+
+                                        '<th>Keterangan</th>'+
                                         '<th colspan="2"><center>Aksi</center</th>'+
                                       '</thead><tbody>';
                                       
                     for (i in daftar_data){
                         data_app += '<tr>';
-                        data_app +=       '<td>'+ daftar_data[i].nis + ' </td>'+
+                        data_app += '<td>'+ daftar_data[i].id_data + ' </td>'+
                                           '<td>'+ daftar_data[i].nama + ' </td>'+
-                                          '<td><center><a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="hapusSiswa(\''+daftar_data[i].id_data+'\')">Hapus</a></center></td>'+
-                                          '<td><center><a class="btn btn-success btn-sm" href="javascript:void(0)" onclick="editSiswa(\''+daftar_data[i].id_data+'\')">Edit</a></center></td>';
+                                          '<td>'+ daftar_data[i].kelas + ' </td>'+
+                                          '<td>'+ daftar_data[i].ket + ' </td>'+
+                                          '<td><center><a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="hapusData(\''+daftar_data[i].id_data+'\')">Hapus</a></center></td>'+
+                                          '<td><center><a class="btn btn-success btn-sm" href="javascript:void(0)" onclick="editData(\''+daftar_data[i].id_data+'\')">Edit</a></center></td>';
                         data_app += '</tr>';
                         
                     }
@@ -127,17 +145,19 @@
                
                 }
                 else {
-                    data_app = "Belum Di Absen...";
+                    data_app = "Belum Ada Data Siswa 2...";
                 }
                
                 
-               $('#list-siswa-icho').html(data_app);
-               $('#list-siswa-icho').hide();
-               $('#list-siswa-icho').fadeIn(100);
+               $('#list-data').html(data_app);
+               $('#list-data').hide();
+               $('#list-data').fadeIn();
             }
         }
+
+
 		
-		function editSiswa(id){
+		function editData(id){
 		
             if (localStorage.daftar_data && localStorage.id_data){
                 daftar_data = JSON.parse(localStorage.getItem('daftar_data'));			
@@ -145,8 +165,9 @@
                 for (i in daftar_data){
                     if (daftar_data[i].id_data == id){
 						$("#eid_data").val(daftar_data[i].id_data);
-						$("#enis").val(daftar_data[i].nis);
 						$("#enama").val(daftar_data[i].nama);
+						$("#ekelas").val(daftar_data[i].kelas);
+						$("#eket").val(daftar_data[i].ket);
 						daftar_data.splice(idx_data, 1);
                     }
                     idx_data ++;
@@ -158,9 +179,10 @@
 		}
         
         
-        function tambahSiswa(){
-            nis = $('#nis').val();
+        function simpanData(){
             nama = $('#nama').val();
+            kelas = $('#kelas').val();
+            ket = $('#ket').val();
             
             if (localStorage.daftar_data && localStorage.id_data){
                 daftar_data = JSON.parse(localStorage.getItem('daftar_data'));
@@ -172,29 +194,95 @@
             }
 
             id_data ++;
-            daftar_data.push({'id_data':id_data, 'nis':nis, 'nama':nama});
+            daftar_data.push({'id_data':id_data, 'nama':nama, 'kelas':kelas, 'ket':ket});
             localStorage.setItem('daftar_data', JSON.stringify(daftar_data));
             localStorage.setItem('id_data', id_data);
             document.getElementById('form-data').reset();
-            gantiMenu('list-siswa-icho');
+            gantiMenu('list-data');
+            
+            return false;
+        }
+
+        function muatDataSiswa(){
+            if (localStorage.data_siswa && localStorage.id_siswa){
+            
+                data_siswa = JSON.parse(localStorage.getItem('data_siswa'));
+               
+                var data_app = "";
+                
+                if (data_siswa.length > 0){
+                    data_app = '<table class="table">';
+                    data_app += '<thead class="thead-dark">'+
+                                        '<th>ID</th>'+
+                                        '<th>Nama</th>'+
+                                        '<th>Kelas</th>'+
+                                        '<th>Keterangan</th>'+
+                                        '<th colspan="2"><center>Aksi</center</th>'+
+                                      '</thead><tbody>';
+                                      
+                    for (i in data_siswa){
+                        data_app += '<tr>';
+                        data_app += '<td>'+ data_siswa[i].id_siswa + ' </td>'+
+                                          '<td>'+ data_siswa[i].nama + ' </td>'+
+                                          '<td>'+ data_siswa[i].kelas + ' </td>'+
+                                          '<td>'+ data_siswa[i].ket + ' </td>'+
+                                          '<td><center><a class="btn btn-danger btn-sm" href="javascript:void(0)" onclick="hapusData(\''+data_siswa[i].id_siswa+'\')">Hapus</a></center></td>'+
+                                          '<td><center><a class="btn btn-success btn-sm" href="javascript:void(0)" onclick="editData(\''+data_siswa[i].id_siswa+'\')">Edit</a></center></td>';
+                        data_app += '</tr>';
+                        
+                    }
+                   data_app += '</tbody></table>';
+               
+                }
+                else {
+                    data_app = "Belum Ada Data Siswa...";
+                }
+               
+                
+               $('#siswa').html(data_app);
+               $('#siswa').hide();
+               $('#siswa').fadeIn();
+            }
+        }
+        
+        function dataSiswa(){
+            nis = $('#nis').val();
+            nama = $('#nama').val();
+            
+            if (localStorage.data_siswa && localStorage.id_siswa){
+                data_siswa = JSON.parse(localStorage.getItem('data_siswa'));
+                id_siswa = parseInt(localStorage.getItem('id_siswa'));
+            }
+            else {
+                data_siswa = [];
+                id_siswa = 0;
+            }
+
+            id_siswa ++;
+            data_siswa.push({'id_siswa':id_siswa, 'nama':nama, 'kelas':kelas, 'ket':ket});
+            localStorage.setItem('data_siswa', JSON.stringify(data_siswa));
+            localStorage.setItem('id_siswa', id_siswa);
+            document.getElementById('form-data').reset();
+            gantiMenu('siswa');
             
             return false;
         }
 		
-        function simpaneditSiswa(){
+        function simpanEditData(){
             id_data = $('#eid_data').val();
-            nis = $('#enis').val();
             nama = $('#enama').val();
+            kelas = $('#ekelas').val();
+            ket = $('#eket').val();
             
-            daftar_data.push({'id_data':id_data, 'nis':nis, 'nama':nama});
+            daftar_data.push({'id_data':id_data, 'nama':nama, 'kelas':kelas, 'ket':ket});
             localStorage.setItem('daftar_data', JSON.stringify(daftar_data));
             document.getElementById('eform-data').reset();
-            gantiMenu('list-siswa-icho');
+            gantiMenu('list-data');
             
             return false;
         }
         
-        function hapusSiswa(id){
+        function hapusData(id){
             if (localStorage.daftar_data && localStorage.id_data){
                 daftar_data = JSON.parse(localStorage.getItem('daftar_data'));
                 
@@ -207,26 +295,47 @@
                 }
                
                 localStorage.setItem('daftar_data', JSON.stringify(daftar_data));
-                muatDataSiswa();
+                muatDaftarData();
             }
         }
 		
 
         function gantiMenu(menu){
-            if (menu == "list-siswa-icho"){
-                muatDataSiswa();
-                $('#tambah-siswa-icho').hide();
-                $('#list-siswa-icho').fadeIn();
-				$('#edit-data').hide();
+            if (menu == "list-data"){
+                muatDaftarData();
+                $('#tambah-data').hide();
+                $('#list-data').fadeIn();
+                $('#edit-data').hide();
+                $('#data').hide();
+				$('#siswa').hide();
             }
-            else if (menu == "tambah-siswa-icho"){
-                $('#tambah-siswa-icho').fadeIn();
-                $('#list-siswa-icho').hide();
-				$('#edit-data').hide();
-            }else if (menu == "edit-data"){
+            else if (menu == "tambah-data"){
+                $('#tambah-data').fadeIn();
+                $('#list-data').hide();
+                $('#edit-data').hide();
+                $('#data').hide();
+				$('#siswa').hide();
+            }
+            else if (menu == "edit-data"){
                 $('#edit-data').fadeIn();
-                $('#tambah-siswa-icho').hide();
-                $('#list-siswa-icho').hide();
+                $('#tambah-data').hide();
+                $('#list-data').hide();
+                $('#data').hide();
+                $('#siswa').hide();
+            }
+            else if (menu == "data"){
+                $('#edit-data').hide();
+                $('#tambah-data').hide();
+                $('#list-data').hide();
+                $('#data').fadeIn();
+                $('#siswa').hide();
+            }
+            else if (menu == "siswa"){
+                $('#edit-data').hide();
+                $('#tambah-data').hide();
+                $('#list-data').hide();
+                $('#data').hide();
+                $('#siswa').fadeIn();
             }
         }
     </script>
